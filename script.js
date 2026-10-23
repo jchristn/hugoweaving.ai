@@ -51,15 +51,15 @@
   window.addEventListener('scroll', function () {
     var scrollY = window.scrollY || window.pageYOffset;
     if (nav) {
-      if (scrollY > 40) { nav.classList.add('scrolled'); }
+      if (scrollY > 20) { nav.classList.add('scrolled'); }
       else { nav.classList.remove('scrolled'); }
     }
   }, { passive: true });
 
   // --- Tab Switching (scoped per tab group) ---
-  document.querySelectorAll('.sdk-tabs').forEach(function (tabGroup) {
+  document.querySelectorAll('.term-tabs').forEach(function (tabGroup) {
     var panelsWrap = tabGroup.nextElementSibling;
-    var groupTabs = tabGroup.querySelectorAll('.sdk-tab');
+    var groupTabs = tabGroup.querySelectorAll('.term-tab');
 
     groupTabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -70,7 +70,7 @@
           t.setAttribute('aria-selected', 'false');
         });
         if (panelsWrap) {
-          panelsWrap.querySelectorAll('.sdk-panel').forEach(function (p) { p.classList.remove('active'); });
+          panelsWrap.querySelectorAll('.term-panel').forEach(function (p) { p.classList.remove('active'); });
         }
 
         this.classList.add('active');
@@ -86,7 +86,7 @@
     var btn = document.createElement('button');
     btn.className = 'copy-btn';
     btn.type = 'button';
-    btn.textContent = 'Copy';
+    btn.textContent = 'copy';
     btn.addEventListener('click', function () {
       var code = block.querySelector('code');
       if (!code) return;
@@ -95,8 +95,8 @@
         return line.replace(/^\$ /, '');
       }).join('\n');
       var done = function () {
-        btn.textContent = 'Copied';
-        setTimeout(function () { btn.textContent = 'Copy'; }, 1600);
+        btn.textContent = 'copied';
+        setTimeout(function () { btn.textContent = 'copy'; }, 1600);
       };
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done, function () {});
@@ -120,9 +120,9 @@
     });
   });
 
-  // --- Hero digital rain (paused off-screen, skipped for reduced motion) ---
-  var canvas = document.getElementById('rain');
-  if (canvas && canvas.getContext && !reduceMotion) {
+  // --- Digital rain (paused off-screen, skipped for reduced motion) ---
+  function startRain(canvas) {
+    if (!canvas || !canvas.getContext || reduceMotion) return;
     var ctx = canvas.getContext('2d');
     var glyphs = 'アカサタナハマヤラワイキシチニヒミリウクスツヌフムユルエケセテネヘメレオコソトノホモヨロ0123456789';
     var fontSize = 16;
@@ -144,18 +144,18 @@
     var draw = function (t) {
       if (!running) return;
       requestAnimationFrame(draw);
-      if (t - last < 60) return;
+      if (t - last < 55) return;
       last = t;
 
       var light = html.getAttribute('data-theme') === 'light';
-      ctx.fillStyle = light ? 'rgba(255, 255, 255, 0.14)' : 'rgba(4, 8, 6, 0.14)';
+      ctx.fillStyle = light ? 'rgba(239, 234, 219, 0.16)' : 'rgba(0, 0, 0, 0.12)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.font = fontSize + 'px "JetBrains Mono", monospace';
+      ctx.font = fontSize + 'px "IBM Plex Mono", monospace';
 
       for (var i = 0; i < columns.length; i++) {
         var y = columns[i] * fontSize;
         var ch = glyphs.charAt(Math.floor(Math.random() * glyphs.length));
-        ctx.fillStyle = light ? '#0a8f47' : (Math.random() > 0.975 ? '#d8ffe8' : '#2ee87f');
+        ctx.fillStyle = light ? '#0b6e2e' : (Math.random() > 0.97 ? '#e8fff0' : '#00ff41');
         ctx.fillText(ch, i * fontSize, y);
         if (y > canvas.height && Math.random() > 0.975) { columns[i] = 0; }
         else { columns[i] += 1; }
@@ -175,6 +175,9 @@
     }
   }
 
+  startRain(document.getElementById('rain'));
+  startRain(document.getElementById('rain-finale'));
+
   // --- Scroll-triggered Fade-in Animation ---
   if (!('IntersectionObserver' in window) || reduceMotion) return;
 
@@ -188,9 +191,9 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll(
-    '.problem-card, .feature-card, .usecase-card, .connector-card, .step, .safety-point, .qs-step'
+    '.row, .timeline li, .benefit, .case, .checklist li, .start-steps li, .memo, .ledger tbody tr'
   ).forEach(function (el, i) {
-    el.classList.add('fade-in');
+    el.classList.add('reveal');
     el.style.transitionDelay = (Math.min(i % 6, 5) * 0.06) + 's';
     observer.observe(el);
   });

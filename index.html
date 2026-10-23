@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" href="assets/icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     // Apply theme before paint to avoid flash. Dark is the default.
@@ -34,651 +34,520 @@
 </head>
 <body>
 
-  <!-- Global background imagery -->
-  <div class="bg-layers" aria-hidden="true">
-    <div class="bg-glow"></div>
-    <div class="bg-grid"></div>
-  </div>
+  <div class="scanlines" aria-hidden="true"></div>
 
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo" aria-label="Agent Smith home">
-        <span class="logo-disc logo-disc-sm"><img src="assets/icon.png" alt="" width="34" height="34"></span>
-        <span class="wordmark">Agent <span class="accent">Smith</span></span>
+  <!-- Status bar navigation -->
+  <header class="statusbar" id="nav">
+    <div class="statusbar-inner">
+      <a href="#" class="brand" aria-label="Agent Smith home">
+        <span class="brand-led" aria-hidden="true"></span>
+        <span class="brand-name">AGENT_SMITH</span>
+        <span class="brand-ver">v0.1.0-alpha</span>
       </a>
-      <div class="nav-links" id="nav-links">
-        <a href="#why">Why</a>
-        <a href="#how">How It Works</a>
-        <a href="#connectors">Connectors</a>
-        <a href="#safety">Safety</a>
-        <a href="#usecases">Use Cases</a>
-        <a href="#quickstart">Get Started</a>
-        <div class="nav-actions">
-          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
-            <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <nav class="nav-links" id="nav-links" aria-label="Sections">
+        <a href="#problem"><b>01</b> Problem</a>
+        <a href="#method"><b>02</b> Method</a>
+        <a href="#connectors"><b>03</b> Connectors</a>
+        <a href="#safety"><b>04</b> Safety</a>
+        <a href="#cases"><b>05</b> Cases</a>
+        <a href="#quickstart"><b>06</b> Start</a>
+        <span class="nav-actions">
+          <button class="icon-btn" id="theme-toggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+            <svg class="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
-          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="nav-icon" aria-label="Agent Smith on Discord" title="Join the Discord">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="icon-btn" aria-label="Agent Smith on Discord" title="Discord">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
           </a>
-          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="nav-icon" aria-label="Agent Smith on GitHub" title="Agent Smith on GitHub">
-            <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="icon-btn" aria-label="Agent Smith on GitHub" title="GitHub">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.070 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
           </a>
-        </div>
-      </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
+        </span>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">MENU</button>
     </div>
-  </nav>
+  </header>
 
   <!-- Hero -->
   <section class="hero">
     <canvas class="rain" id="rain" aria-hidden="true"></canvas>
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="dot"></span> Open Source &middot; MIT Licensed &middot; Self-Hosted</div>
-          <h1>One agent.<br><span class="gradient-text">Every part of your stack.</span></h1>
-          <p class="hero-sub">Agent Smith connects an AI agent to your hosts, databases, object storage, logs, caches, clouds and clusters, then lets you run all of it through conversation. Credentials stay in an encrypted vault, every tool call is classified before it runs, and anything risky waits for you to approve it.</p>
-          <div class="hero-actions">
-            <a href="#quickstart" class="btn btn-primary">Get Started</a>
-            <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              View on GitHub
-            </a>
-          </div>
-          <p class="hero-note">Runs on your machines with Docker Compose or Kubernetes. Bring your own model: Ollama or a hosted provider.</p>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <pre class="boot" aria-hidden="true"><span>&gt; establishing connection ........ <i>ok</i></span>
+<span>&gt; vault unsealed ................. <i>ok</i></span>
+<span>&gt; 20 connectors loaded ........... <i>ok</i></span>
+<span>&gt; operator identified ............ <i>mr. anderson</i></span></pre>
+        <h1 class="glitch" data-text="One agent. Every system.">One agent.<br>Every system.</h1>
+        <p class="hero-sub">Agent Smith connects an AI agent to every part of your production stack (hosts, databases, object storage, logs, caches, clouds and clusters) so you can run it through conversation. Credentials stay sealed in a vault. Every tool call is classified before it runs. Anything risky waits for a human.</p>
+        <div class="cta-row">
+          <a href="#quickstart" class="btn btn-solid">[ Get started ]</a>
+          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="btn btn-line">[ GitHub ]</a>
+          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="btn btn-line">[ Discord ]</a>
         </div>
+        <p class="hero-meta">Open source &middot; MIT &middot; Self-hosted &middot; Bring your own model<span class="cursor" aria-hidden="true"></span></p>
+      </div>
 
-        <div class="hero-visual">
-          <div class="hero-portrait">
-            <span class="logo-disc logo-disc-lg"><img src="assets/icon.png" alt="Agent Smith, a stylized man in a black suit and dark sunglasses" width="220" height="220"></span>
-          </div>
-          <div class="chat-window">
-            <div class="terminal-bar">
-              <span class="terminal-dot red"></span>
-              <span class="terminal-dot yellow"></span>
-              <span class="terminal-dot green"></span>
-              <span class="terminal-title">Agent Smith &middot; ops profile</span>
-            </div>
-            <div class="chat-body">
-              <div class="msg msg-user">
-                <span class="msg-who">You</span>
-                <p>Checkout is slow. What's going on?</p>
-              </div>
-              <div class="tool-call"><span class="effect effect-read">Read</span><code>logs_search</code><span class="tool-target">checkout-logs</span><span class="tool-ok">&#10003;</span></div>
-              <div class="tool-call"><span class="effect effect-read">Read</span><code>sql_activity</code><span class="tool-target">prod-db</span><span class="tool-ok">&#10003;</span></div>
-              <div class="tool-call"><span class="effect effect-read">Read</span><code>ssh_system_info</code><span class="tool-target">web-01</span><span class="tool-ok">&#10003;</span></div>
-              <div class="msg msg-agent">
-                <span class="msg-who">Agent Smith</span>
-                <p>Mr. Anderson, the database is fine. nginx on <code>web-01</code> has 2,400 connections stuck in CLOSE_WAIT, and checkout requests queue behind them. A restart should clear it.</p>
-              </div>
-              <div class="approval">
-                <div class="approval-head">
-                  <span class="effect effect-destructive">Destructive</span>
-                  <span class="approval-title">Approval required</span>
-                </div>
-                <code class="approval-cmd">ssh_service_control &middot; restart nginx on web-01</code>
-                <div class="approval-actions">
-                  <span class="mini-btn mini-reject">Reject</span>
-                  <span class="mini-btn mini-approve">Approve</span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <aside class="dossier" aria-label="Agent Smith profile">
+        <div class="dossier-tab">FILE NO. 0001 // SMITH, A.</div>
+        <div class="dossier-body">
+          <figure class="mugshot">
+            <img src="assets/icon.png" alt="Agent Smith, a stylized man in a black suit and dark sunglasses" width="512" height="512">
+            <figcaption>SUBJECT PHOTO</figcaption>
+          </figure>
+          <dl class="dossier-fields">
+            <dt>Designation</dt><dd>Agent Smith</dd>
+            <dt>Function</dt><dd>Production operations</dd>
+            <dt>Jurisdiction</dt><dd>Every system you connect</dd>
+            <dt>Clearance</dt><dd>Per resource, per agent</dd>
+            <dt>Credentials</dt><dd><span class="redact" tabindex="0" data-reveal="[vaulted]">s3cr3t-p4ssw0rd</span></dd>
+            <dt>Addresses you as</dt><dd>Mr. Anderson</dd>
+          </dl>
         </div>
+        <div class="stamp" aria-hidden="true">Classified</div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Readout -->
+  <div class="readout">
+    <div class="wrap readout-inner">
+      <div><span class="vt">20</span>connector types</div>
+      <div><span class="vt">100+</span>operational tools</div>
+      <div><span class="vt">6</span>ways to connect</div>
+      <div><span class="vt">3</span>effect classes</div>
+      <div><span class="vt">0</span>secrets in prompts</div>
+    </div>
+  </div>
+
+  <!-- Transcript -->
+  <section class="transcript-section">
+    <div class="wrap">
+      <div class="transcript">
+        <div class="transcript-head">
+          <span>INTERCEPTED TRANSCRIPT</span>
+          <span>profile: ops &middot; tenant: default</span>
+        </div>
+        <ol class="log">
+          <li><time>02:14:07</time><b class="who-anderson">ANDERSON</b><span>Checkout is slow. What's going on?</span></li>
+          <li><time>02:14:08</time><b class="who-smith">SMITH</b><span><code>logs_search</code> checkout-logs <em class="fx fx-read">READ</em> <small>ok 212ms</small></span></li>
+          <li><time>02:14:08</time><b class="who-smith">SMITH</b><span><code>sql_activity</code> prod-db <em class="fx fx-read">READ</em> <small>ok 96ms</small></span></li>
+          <li><time>02:14:09</time><b class="who-smith">SMITH</b><span><code>ssh_system_info</code> web-01 <em class="fx fx-read">READ</em> <small>ok 341ms</small></span></li>
+          <li class="log-say"><time>02:14:12</time><b class="who-smith">SMITH</b><span>Mr. Anderson, the database is fine. nginx on web-01 is holding 2,400 connections in CLOSE_WAIT and checkout requests are queuing behind them. A restart should clear it. It was, if you'll forgive me, inevitable.</span></li>
+          <li class="log-hold"><time>02:14:12</time><b class="who-system">SYSTEM</b><span><em class="fx fx-destructive">DESTRUCTIVE</em> <code>ssh_service_control</code> restart nginx on web-01 &middot; awaiting approval <span class="log-btns"><span class="lb lb-no">reject</span><span class="lb lb-yes">approve</span></span></span></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <!-- Trust Bar -->
-  <section class="trust-bar">
-    <div class="container">
-      <div class="trust-items">
-        <div class="trust-item">
-          <span class="trust-number">20</span>
-          <span class="trust-label">Connector Types</span>
-        </div>
-        <div class="trust-divider"></div>
-        <div class="trust-item">
-          <span class="trust-number">100<span>+</span></span>
-          <span class="trust-label">Operational Tools</span>
-        </div>
-        <div class="trust-divider"></div>
-        <div class="trust-item">
-          <span class="trust-number">6</span>
-          <span class="trust-label">Ways to Connect</span>
-        </div>
-        <div class="trust-divider"></div>
-        <div class="trust-item">
-          <span class="trust-number">3</span>
-          <span class="trust-label">Effect Classes on Every Call</span>
-        </div>
-        <div class="trust-divider"></div>
-        <div class="trust-item">
-          <span class="trust-number">0</span>
-          <span class="trust-label">Secrets in Prompts</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Why -->
-  <section class="section" id="why">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Why Agent Smith</span>
+  <!-- 01 Problem -->
+  <section class="file" id="problem">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 01</span><span>The problem</span></div>
+      <div class="file-content">
         <h2>Your production stack lives in a dozen tabs.</h2>
-        <p class="section-sub">An outage rarely stays in one system. You read logs in one console, query the database in another, SSH into a host, check the cluster, and piece the story together yourself at two in the morning. Agents are good at exactly this kind of cross-system detective work. The hard part has always been letting them in safely.</p>
-      </div>
+        <p class="lede">An outage rarely stays in one system. You read logs in one console, query the database in another, SSH into a host, check the cluster, and piece the story together yourself at two in the morning. Agents are good at exactly this kind of cross-system detective work. The hard part has always been letting them in safely.</p>
+        <blockquote class="smith">Why, Mr. Anderson? Why do you persist in opening twelve consoles?</blockquote>
 
-      <div class="problem-grid">
-        <div class="problem-card">
-          <div class="problem-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <div class="rows">
+          <div class="row">
+            <span class="row-no">01.1</span>
+            <h3>Agents can't see your systems</h3>
+            <p>A chat assistant can explain what CLOSE_WAIT means. It can't tell you that web-01 is full of them right now. Without real connections, the agent is guessing and you're still the one doing the work.</p>
           </div>
-          <h3>Agents can't see your systems</h3>
-          <p>A chat assistant can explain what CLOSE_WAIT means. It can't tell you that web-01 is full of them right now. Without real connections, the agent is guessing and you're still the one doing the work.</p>
-        </div>
-        <div class="problem-card">
-          <div class="problem-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/></svg>
+          <div class="row">
+            <span class="row-no">01.2</span>
+            <h3>Credentials end up in the wrong places</h3>
+            <p>Wiring tools together by hand usually means pasting connection strings into config files, environment variables and, eventually, prompts. Once a password is in a transcript, you no longer control where it goes.</p>
           </div>
-          <h3>Credentials end up in the wrong places</h3>
-          <p>Wiring tools together by hand usually means pasting connection strings into config files, environment variables and, eventually, prompts. Once a password is in a transcript, you no longer control where it goes.</p>
-        </div>
-        <div class="problem-card">
-          <div class="problem-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div class="row">
+            <span class="row-no">01.3</span>
+            <h3>Access is all or nothing</h3>
+            <p>Give an agent a shell and it can read a log file or drop a table with equal ease. Telling it "please be careful" in the system prompt is a hope, not a control.</p>
           </div>
-          <h3>All or nothing access</h3>
-          <p>Give an agent a shell and it can read a log file or drop a table with equal ease. Telling it "please be careful" in the system prompt is a hope, not a control.</p>
         </div>
-      </div>
 
-      <div class="why-answer">
-        <p>Agent Smith is the missing layer between your agent and your infrastructure. You connect each system once, store its credentials encrypted, and decide per agent what it may read, what it may change, and what needs a human to say yes. The model never sees a secret, and policy is enforced by the server rather than by the model's good manners.</p>
+        <div class="revelation">
+          <span class="revelation-head">I'd like to share a revelation, Mr. Anderson.</span>
+          <p>Agent Smith is the missing layer between your agent and your infrastructure. You connect each system once, store its credentials encrypted, and decide per agent what it may read, what it may change, and what needs a human to say yes. The model never sees a secret, and policy is enforced by the server rather than by the model's good manners.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- How it works -->
-  <section class="section section-alt" id="how">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">How It Works</span>
+  <!-- 02 Method -->
+  <section class="file" id="method">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 02</span><span>Method</span></div>
+      <div class="file-content">
         <h2>Connect once. Compose agents. Talk from anywhere.</h2>
-        <p class="section-sub">Everything in Agent Smith is built from three pieces: resources, secrets and agent profiles. Configure them in the dashboard's setup wizard, through the REST API, or with an SDK.</p>
-      </div>
+        <p class="lede">Everything in Agent Smith is built from three pieces: resources, secrets and agent profiles. Configure them in the dashboard's setup wizard, through the REST API, or with an SDK.</p>
 
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">1</div>
-          <h3>Add your resources</h3>
-          <p>Pick a connector, point it at a target (an SSH host, a PostgreSQL server, an S3 bucket, a Kubernetes cluster) and run <strong>Test Connection</strong>. A resource is configured once and can be shared by many agents.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">2</div>
-          <h3>Vault the credentials</h3>
-          <p>Passwords, keys and tokens go into an encrypted vault and are bound to the resource's secret slots. They resolve at execution time, so they are never part of a tool argument or a prompt.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
-          <h3>Build an agent profile</h3>
-          <p>Choose a model, then bind resources with an alias and an access mode: <code>prod-db</code> as ReadOnly, <code>web-01</code> as ReadWriteWithApproval. Add instructions and runbooks the agent should follow.</p>
-        </div>
-        <div class="step">
-          <div class="step-num">4</div>
-          <h3>Put it to work</h3>
-          <p>Chat in the dashboard, publish a standalone chat page, or connect Claude Code, your own app or another agent over MCP, A2A, REST, the SDKs or the OpenAI-compatible API.</p>
-        </div>
-      </div>
+        <ol class="timeline">
+          <li>
+            <span class="tl-step">STEP 1</span>
+            <h3>Add your resources</h3>
+            <p>Pick a connector, point it at a target (an SSH host, a PostgreSQL server, an S3 bucket, a Kubernetes cluster) and run Test Connection. One resource can serve many agents.</p>
+          </li>
+          <li>
+            <span class="tl-step">STEP 2</span>
+            <h3>Seal the credentials</h3>
+            <p>Passwords, keys and tokens go into an encrypted vault, bound to the resource's secret slots. They resolve at execution time and are never part of a tool argument or a prompt.</p>
+          </li>
+          <li>
+            <span class="tl-step">STEP 3</span>
+            <h3>Build an agent profile</h3>
+            <p>Choose a model, then bind resources with an alias and an access mode: <code>prod-db</code> as ReadOnly, <code>web-01</code> as ReadWriteWithApproval. Add instructions and runbooks.</p>
+          </li>
+          <li>
+            <span class="tl-step">STEP 4</span>
+            <h3>Put it to work</h3>
+            <p>Chat in the dashboard, publish a standalone chat page, or connect Claude Code, your own app or another agent over MCP, A2A, REST, the SDKs or the OpenAI-compatible API.</p>
+          </li>
+        </ol>
 
-      <!-- Architecture diagram -->
-      <div class="arch">
-        <div class="arch-col">
-          <div class="arch-label">Talk to it</div>
-          <div class="arch-box"><span>Dashboard chat</span></div>
-          <div class="arch-box"><span>Standalone chat</span></div>
-          <div class="arch-box"><span>MCP clients</span><small>Claude Code, Cursor, Codex</small></div>
-          <div class="arch-box"><span>A2A agents</span></div>
-          <div class="arch-box"><span>REST &amp; SDKs</span><small>C#, Python, JavaScript</small></div>
-          <div class="arch-box"><span>OpenAI-compatible</span></div>
-        </div>
-        <div class="arch-arrow" aria-hidden="true"><span></span></div>
-        <div class="arch-col arch-core">
-          <div class="arch-label">Agent Smith server</div>
-          <div class="arch-core-box">
-            <div class="core-row"><strong>Agent profiles</strong><span>persona &middot; model &middot; instructions &middot; bindings</span></div>
-            <div class="pipeline">
-              <span>Classify</span><i></i><span>Authorize</span><i></i><span>Approve</span><i></i><span>Execute</span><i></i><span>Limit</span><i></i><span>Record</span>
+        <div class="schematic" aria-label="Architecture: clients connect to the Agent Smith server, which connects to your systems">
+          <div class="sch-col">
+            <div class="sch-title">// clients</div>
+            <ul>
+              <li>Dashboard chat</li>
+              <li>Standalone chat</li>
+              <li>MCP <small>Claude Code, Cursor, Codex</small></li>
+              <li>A2A agents</li>
+              <li>REST &amp; SDKs <small>C#, Python, JS</small></li>
+              <li>OpenAI-compatible</li>
+            </ul>
+          </div>
+          <div class="sch-wire" aria-hidden="true"></div>
+          <div class="sch-core">
+            <div class="sch-title">// agent smith server</div>
+            <div class="sch-pipeline">
+              <span>classify</span><span>authorize</span><span>approve</span><span>execute</span><span>limit</span><span>record</span>
             </div>
-            <div class="core-row"><strong>Encrypted vault</strong><span>credentials resolve only at execution</span></div>
-            <div class="core-row"><strong>Memory</strong><span>resource context &middot; documents &middot; conversations</span></div>
-            <div class="core-row"><strong>Audit &amp; telemetry</strong><span>every call, every decision, scrubbed</span></div>
+            <dl>
+              <dt>Profiles</dt><dd>persona, model, instructions, bindings</dd>
+              <dt>Vault</dt><dd>credentials resolve only at execution</dd>
+              <dt>Memory</dt><dd>resource context, documents, conversations</dd>
+              <dt>Audit</dt><dd>every call and decision, scrubbed</dd>
+            </dl>
+          </div>
+          <div class="sch-wire" aria-hidden="true"></div>
+          <div class="sch-col">
+            <div class="sch-title">// your stack</div>
+            <ul>
+              <li>Hosts <small>SSH, SFTP, services</small></li>
+              <li>Databases <small>Postgres, MySQL, SQL Server</small></li>
+              <li>Storage <small>S3, Azure Blob, GCS</small></li>
+              <li>Telemetry <small>Loki, Prometheus, Elastic</small></li>
+              <li>Clusters &amp; cloud <small>K8s, Docker, AWS</small></li>
+              <li>Other agents <small>MCP, A2A</small></li>
+            </ul>
           </div>
         </div>
-        <div class="arch-arrow" aria-hidden="true"><span></span></div>
-        <div class="arch-col">
-          <div class="arch-label">Your stack</div>
-          <div class="arch-box"><span>Hosts</span><small>SSH, SFTP, services</small></div>
-          <div class="arch-box"><span>Databases</span><small>Postgres, MySQL, SQL Server</small></div>
-          <div class="arch-box"><span>Storage</span><small>S3, Azure Blob, GCS</small></div>
-          <div class="arch-box"><span>Logs &amp; metrics</span><small>Loki, Prometheus, Elastic</small></div>
-          <div class="arch-box"><span>Clusters &amp; cloud</span><small>Kubernetes, Docker, AWS</small></div>
-          <div class="arch-box"><span>Other agents</span><small>MCP servers, A2A</small></div>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- Connectors -->
-  <section class="section" id="connectors">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Connectors</span>
+  <!-- 03 Connectors -->
+  <section class="file" id="connectors">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 03</span><span>Connectors</span></div>
+      <div class="file-content">
         <h2>Twenty connectors across the systems you actually run.</h2>
-        <p class="section-sub">Each connector ships purpose-built tools, so the agent asks for <code>k8s_logs</code> or <code>sql_activity</code> instead of improvising shell one-liners. Connector schemas drive the resource forms, secret slots, connection tests and tool definitions.</p>
-      </div>
+        <p class="lede">Each connector ships purpose-built tools, so the agent asks for <code>k8s_logs</code> or <code>sql_activity</code> instead of improvising shell one-liners. Connector schemas drive the resource forms, secret slots, connection tests and tool definitions.</p>
 
-      <div class="connector-grid">
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Hosts</span><span class="connector-count">8 tools</span></div>
-          <h3>SSH</h3>
-          <p>Commands, system info, SFTP and service control on Linux hosts.</p>
-          <div class="tool-chips"><code>ssh_system_info</code><code>ssh_exec</code><code>ssh_service_control</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Databases</span><span class="connector-count">16 tools</span></div>
-          <h3>PostgreSQL, MySQL, SQL Server, SQLite</h3>
-          <p>Schema inspection, inferred relationships, live activity and natural-language questions, with durable database context.</p>
-          <div class="tool-chips"><code>sql_query</code><code>sql_activity</code><code>sql_ask</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Object storage</span><span class="connector-count">8 tools</span></div>
-          <h3>Amazon S3, Azure Blob, Google Cloud Storage</h3>
-          <p>List, read and presign across S3 and S3-compatible services like MinIO.</p>
-          <div class="tool-chips"><code>storage_list</code><code>storage_read</code><code>storage_presign_url</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Orchestration</span><span class="connector-count">22 tools</span></div>
-          <h3>Kubernetes and Docker</h3>
-          <p>Pods, logs, events, rollouts and containers, with restarts gated by approval.</p>
-          <div class="tool-chips"><code>k8s_logs</code><code>k8s_rollout_restart</code><code>docker_ps</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Cloud</span><span class="connector-count">17 tools</span></div>
-          <h3>AWS</h3>
-          <p>EC2 inventory, CloudWatch Logs Insights and more, scoped by IAM policy.</p>
-          <div class="tool-chips"><code>aws_ec2_describe_instances</code><code>aws_logs_insights_query</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Observability</span><span class="connector-count">16 tools</span></div>
-          <h3>Prometheus, Loki, Elasticsearch / OpenSearch</h3>
-          <p>Range queries, log queries and search across your telemetry backends.</p>
-          <div class="tool-chips"><code>prom_query_range</code><code>loki_query</code><code>es_search</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Logs</span><span class="connector-count">5 tools</span></div>
-          <h3>SolarWinds Observability</h3>
-          <p>Search and tail logs, and query metrics from a hosted log service.</p>
-          <div class="tool-chips"><code>logs_search</code><code>logs_tail</code><code>swo_query_metric</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Cache</span><span class="connector-count">13 tools</span></div>
-          <h3>Redis</h3>
-          <p>Server info, key scans and the slow log, without handing over the whole keyspace.</p>
-          <div class="tool-chips"><code>redis_info</code><code>redis_scan</code><code>redis_slowlog</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">APIs</span><span class="connector-count">2 tools</span></div>
-          <h3>HTTP APIs</h3>
-          <p>Health checks and requests to internal services, with configured request limits.</p>
-          <div class="tool-chips"><code>http_health_check</code><code>http_request</code></div>
-        </div>
-        <div class="connector-card">
-          <div class="connector-head"><span class="connector-family">Cryptography</span><span class="connector-count">4 tools</span></div>
-          <h3>Vault-managed AES and SHA</h3>
-          <p>Encrypt, decrypt and hash with bound key material the model never retrieves.</p>
-          <div class="tool-chips"><code>crypto_encrypt</code><code>crypto_decrypt</code><code>crypto_hash</code></div>
-        </div>
-        <div class="connector-card connector-card-wide">
-          <div class="connector-head"><span class="connector-family">Agents</span><span class="connector-count">7 tools</span></div>
-          <h3>External MCP servers and remote A2A agents</h3>
-          <p>Attach other tool servers and other agents as resources. Agent Smith can call an existing MCP server's tools or delegate a task to a specialist agent over A2A, under the same access modes and approvals as everything else.</p>
-          <div class="tool-chips"><code>mcp_call_tool</code><code>a2a_delegate</code></div>
-        </div>
-      </div>
-      <p class="connector-foot">Need something else? The connector contract is a small, documented interface. See the <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/CONNECTOR_AUTHORING.md" target="_blank" rel="noopener">connector authoring guide</a>.</p>
-    </div>
-  </section>
-
-  <!-- Safety -->
-  <section class="section section-alt" id="safety">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Safety Model</span>
-        <h2>The server decides. Not the model.</h2>
-        <p class="section-sub">Every tool call is classified as Read, Write or Destructive before it runs. A SELECT is Read, an UPDATE is Write, a DROP or a service restart is Destructive, and anything Agent Smith can't parse is treated conservatively. The binding's access mode then decides what happens.</p>
-      </div>
-
-      <div class="safety-grid">
-        <div class="matrix-wrap">
-          <table class="matrix">
+        <div class="ledger-wrap">
+          <table class="ledger">
             <thead>
-              <tr>
-                <th>Effect</th>
-                <th>ReadOnly</th>
-                <th>ReadWrite<wbr>WithApproval</th>
-                <th>ReadWrite</th>
-              </tr>
+              <tr><th>Family</th><th>Systems</th><th>Tools</th><th>Examples</th></tr>
             </thead>
             <tbody>
-              <tr>
-                <td><span class="effect effect-read">Read</span></td>
-                <td class="m-allow">Allowed</td>
-                <td class="m-allow">Allowed</td>
-                <td class="m-allow">Allowed</td>
-              </tr>
-              <tr>
-                <td><span class="effect effect-write">Write</span></td>
-                <td class="m-deny">Denied</td>
-                <td class="m-approve">Approval</td>
-                <td class="m-allow">Allowed</td>
-              </tr>
-              <tr>
-                <td><span class="effect effect-destructive">Destructive</span></td>
-                <td class="m-deny">Denied</td>
-                <td class="m-approve">Approval</td>
-                <td class="m-approve">Approval<small>unless disabled for the binding</small></td>
-              </tr>
+              <tr><td>Hosts</td><td>SSH: commands, SFTP, services</td><td class="num">8</td><td><code>ssh_exec</code> <code>ssh_service_control</code></td></tr>
+              <tr><td>Databases</td><td>PostgreSQL, MySQL, SQL Server, SQLite</td><td class="num">16</td><td><code>sql_query</code> <code>sql_activity</code> <code>sql_ask</code></td></tr>
+              <tr><td>Storage</td><td>Amazon S3, Azure Blob, Google Cloud Storage</td><td class="num">8</td><td><code>storage_list</code> <code>storage_presign_url</code></td></tr>
+              <tr><td>Orchestration</td><td>Kubernetes, Docker</td><td class="num">22</td><td><code>k8s_logs</code> <code>k8s_rollout_restart</code> <code>docker_ps</code></td></tr>
+              <tr><td>Cloud</td><td>AWS</td><td class="num">17</td><td><code>aws_ec2_describe_instances</code> <code>aws_logs_insights_query</code></td></tr>
+              <tr><td>Observability</td><td>Prometheus, Loki, Elasticsearch / OpenSearch</td><td class="num">16</td><td><code>prom_query_range</code> <code>loki_query</code> <code>es_search</code></td></tr>
+              <tr><td>Logs</td><td>SolarWinds Observability</td><td class="num">5</td><td><code>logs_search</code> <code>logs_tail</code></td></tr>
+              <tr><td>Cache</td><td>Redis</td><td class="num">13</td><td><code>redis_info</code> <code>redis_slowlog</code></td></tr>
+              <tr><td>APIs</td><td>HTTP APIs with request limits</td><td class="num">2</td><td><code>http_health_check</code> <code>http_request</code></td></tr>
+              <tr><td>Cryptography</td><td>Vault-held AES keys, SHA digests</td><td class="num">4</td><td><code>crypto_encrypt</code> <code>crypto_hash</code></td></tr>
+              <tr><td>Agents</td><td>External MCP servers, remote A2A agents</td><td class="num">7</td><td><code>mcp_call_tool</code> <code>a2a_delegate</code></td></tr>
             </tbody>
           </table>
-          <p class="matrix-note">Resource ceilings, deny patterns, tool rules, tenant lockdown and credential scopes can narrow access further. Pair them with least-privilege credentials on the target systems.</p>
         </div>
+        <p class="aside-note">Missing a system? The connector contract is a small, documented interface. Read the <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/CONNECTOR_AUTHORING.md" target="_blank" rel="noopener">connector authoring guide</a>.</p>
+      </div>
+    </div>
+  </section>
 
-        <div class="safety-points">
-          <div class="safety-point">
-            <h3>Approvals with a paper trail</h3>
-            <p>A call that needs approval pauses with the exact arguments, the resource and the reason. Approve or reject it with a note; the agent is told either way, and the decision lands in the audit log.</p>
+  <!-- 04 Safety -->
+  <section class="file" id="safety">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 04</span><span>Safety model</span></div>
+      <div class="file-content">
+        <h2>The server decides. Not the model.</h2>
+        <p class="lede">Every tool call is classified as Read, Write or Destructive before it runs. A SELECT is Read, an UPDATE is Write, a DROP or a service restart is Destructive, and anything Agent Smith can't parse is treated conservatively. The binding's access mode then decides what happens.</p>
+        <blockquote class="smith">You hear that, Mr. Anderson? That is the sound of an approval request. Nothing destructive happens until you answer it.</blockquote>
+
+        <div class="safety-split">
+          <div class="matrix-wrap">
+            <table class="matrix">
+              <thead>
+                <tr><th>Effect \ Mode</th><th>ReadOnly</th><th>ReadWrite<wbr>WithApproval</th><th>ReadWrite</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><em class="fx fx-read">READ</em></td><td class="m-ok">allow</td><td class="m-ok">allow</td><td class="m-ok">allow</td></tr>
+                <tr><td><em class="fx fx-write">WRITE</em></td><td class="m-no">deny</td><td class="m-ask">approve</td><td class="m-ok">allow</td></tr>
+                <tr><td><em class="fx fx-destructive">DESTRUCTIVE</em></td><td class="m-no">deny</td><td class="m-ask">approve</td><td class="m-ask">approve*</td></tr>
+              </tbody>
+            </table>
+            <p class="matrix-note">* unless disabled for the binding. Resource ceilings, deny patterns, tool rules, tenant lockdown and credential scopes narrow access further. Pair them with least-privilege accounts on the target systems.</p>
           </div>
-          <div class="safety-point">
-            <h3>Secrets stay in the vault</h3>
-            <p>Connector credentials are encrypted at rest and resolved at execution time. A scrubber runs over prompts, logs, request history, audit descriptions and tool output.</p>
-          </div>
-          <div class="safety-point">
-            <h3>Multi-tenant by design</h3>
-            <p>Every query filters by tenant. Roles, scoped credentials and profile-locked access keys control who can use which agent, and a lockdown switch freezes a tenant when you need it.</p>
-          </div>
-          <div class="safety-point">
-            <h3>One pipeline for every surface</h3>
-            <p>Dashboard, MCP, A2A, REST and the OpenAI-compatible API all go through the same invocation pipeline. There's no side door that skips classification or approval.</p>
-          </div>
+
+          <ul class="checklist">
+            <li><strong>Approvals with a paper trail.</strong> A paused call shows the exact arguments, the resource and the reason. Approve or reject it with a note; the agent is told either way and the decision lands in the audit log.</li>
+            <li><strong>Secrets stay sealed.</strong> Credentials are encrypted at rest and resolved at execution. A scrubber runs over prompts, logs, request history, audit descriptions and tool output. Hover this: <span class="redact" tabindex="0" data-reveal="[vaulted]">hunter2-prod</span></li>
+            <li><strong>Multi-tenant by design.</strong> Every query filters by tenant. Roles and scoped access decide who can use which agent, and a lockdown switch freezes a tenant when you need it.</li>
+            <li><strong>No side doors.</strong> Dashboard, MCP, A2A, REST and the OpenAI-compatible API all pass through the same invocation pipeline.</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Features / Benefits -->
-  <section class="section" id="features">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Benefits</span>
+  <!-- Benefits -->
+  <section class="file" id="benefits">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 04.B</span><span>Benefits</span></div>
+      <div class="file-content">
         <h2>Built for the people who carry the pager.</h2>
-        <p class="section-sub">Agent Smith isn't a chatbot bolted onto a dashboard. It's an operations server that happens to speak every agent protocol worth speaking.</p>
-      </div>
-
-      <div class="feature-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-          <h3>Faster answers during incidents</h3>
-          <p>The agent checks logs, the database and the host in parallel and comes back with a diagnosis, not a list of things for you to go look at.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 6v6l4 2"/><path d="M16 2h6v6"/></svg></div>
-          <h3>It learns your environment</h3>
-          <p>Agents record what they discover about each resource (paths, services, tables, relationships) and reload it next time. Attach runbooks and log formats as versioned documents.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-          <h3>Different agents for different jobs</h3>
-          <p>An on-call agent with approval-gated write access. A read-only analytics agent for the data team. A public support bot with a single HTTP API. Same resources, different bindings.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-          <h3>Works with the agent you already use</h3>
-          <p>Point Claude Code, Cursor or Codex at the MCP endpoint and they get your resources as tools, with Agent Smith's approvals still in force. Your model, your loop, our guardrails.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-          <h3>Observable from day one</h3>
-          <p>The Compose stack includes Prometheus, Loki, Tempo and Grafana. Every invocation, request and approval is recorded, and chat answers can be rated and reviewed.</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
-          <h3>Yours to run</h3>
-          <p>MIT licensed and self-hosted on Docker Compose, Kubernetes (Kustomize or Helm) or minikube. SQLite out of the box, PostgreSQL when you want it, images for amd64 and arm64.</p>
+        <blockquote class="smith">I hate this place, this zoo, this prison. Mostly the part where you SSH into four hosts to find one log line.</blockquote>
+        <div class="benefits">
+          <div class="benefit">
+            <span class="vt">A</span>
+            <h3>Faster answers during incidents</h3>
+            <p>The agent checks logs, the database and the host, then comes back with a diagnosis instead of a list of places for you to go look.</p>
+          </div>
+          <div class="benefit">
+            <span class="vt">B</span>
+            <h3>It learns your environment</h3>
+            <p>Agents record what they discover about each resource (paths, services, tables, relationships) and reload it next time. Attach runbooks and log formats as versioned documents.</p>
+          </div>
+          <div class="benefit">
+            <span class="vt">C</span>
+            <h3>Me. Me. Me too.</h3>
+            <p>Run as many agents as you need. An on-call agent with approval-gated writes, a read-only analytics agent for the data team, a public support bot with one HTTP API. Same resources, different bindings.</p>
+          </div>
+          <div class="benefit">
+            <span class="vt">D</span>
+            <h3>Works with the agent you already use</h3>
+            <p>Point Claude Code, Cursor or Codex at the MCP endpoint and they get your resources as tools, with approvals still in force. Your model, your loop, our guardrails.</p>
+          </div>
+          <div class="benefit">
+            <span class="vt">E</span>
+            <h3>Observable from day one</h3>
+            <p>The Compose stack ships Prometheus, Loki, Tempo and Grafana. Every invocation, request and approval is recorded, and chat answers can be rated and reviewed.</p>
+          </div>
+          <div class="benefit">
+            <span class="vt">F</span>
+            <h3>Yours to run</h3>
+            <p>MIT licensed and self-hosted on Docker Compose, Kubernetes (Kustomize or Helm) or minikube. SQLite out of the box, PostgreSQL when you want it, amd64 and arm64 images.</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Use cases -->
-  <section class="section section-alt" id="usecases">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Use Cases</span>
+  <!-- 05 Cases -->
+  <section class="file" id="cases">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 05</span><span>Case files</span></div>
+      <div class="file-content">
         <h2>What people hand to Agent Smith.</h2>
-      </div>
-
-      <div class="usecase-grid">
-        <div class="usecase-card">
-          <span class="usecase-tag">Incident response</span>
-          <h3>"Why is checkout slow?"</h3>
-          <p>The agent searches the checkout logs, looks at live database activity and checks host load, then tells you which of the three is actually the problem. If the fix is a restart, it asks first.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Database work</span>
-          <h3>"Which customers churned last quarter?"</h3>
-          <p>SQL connectors infer schemas and relationships and keep what they learn, so a read-only agent can answer analytics questions without anyone writing the joins by hand.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Kubernetes</span>
-          <h3>"The payments pods keep restarting."</h3>
-          <p>Pull pod logs and events, find the OOM kill, and propose a rollout restart that waits in the approvals queue until someone on the team signs off.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Cloud inventory</span>
-          <h3>"What's running in us-east-1?"</h3>
-          <p>Describe EC2 instances, run CloudWatch Logs Insights queries and summarize what you're paying for, using an IAM role scoped to read.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Developer tooling</span>
-          <h3>Give your coding agent production context</h3>
-          <p>Connect Claude Code over MCP to a profile built for development. It can read staging logs and query the dev database while you debug, and nothing more.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Agent networks</span>
-          <h3>Delegate to specialists</h3>
-          <p>Expose an Agent Smith profile over A2A so other agents can call it, or attach remote A2A agents and MCP servers so Agent Smith can hand work to them.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Self-service</span>
-          <h3>A status page that answers questions</h3>
-          <p>Publish a standalone chat link with your logo, authenticated or public, backed by a scoped credential and a read-only health check binding.</p>
-        </div>
-        <div class="usecase-card">
-          <span class="usecase-tag">Data protection</span>
-          <h3>Encrypt without exposing keys</h3>
-          <p>The cryptography connector encrypts, decrypts and hashes with vault-held AES keys. The agent does the transformation; it never learns the key.</p>
+        <blockquote class="smith">Tell me, Mr. Anderson, what good is a pager if you are unable to see the problem?</blockquote>
+        <div class="cases">
+          <article class="case">
+            <header><span>CASE 001</span><span>Incident response</span></header>
+            <h3>"Why is checkout slow?"</h3>
+            <p>Searches the checkout logs, looks at live database activity and checks host load, then tells you which of the three is the actual problem. If the fix is a restart, it asks first.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 002</span><span>Databases</span></header>
+            <h3>"Which customers churned last quarter?"</h3>
+            <p>SQL connectors infer schemas and relationships and keep what they learn, so a read-only agent can answer analytics questions without anyone writing the joins.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 003</span><span>Kubernetes</span></header>
+            <h3>"The payments pods keep restarting."</h3>
+            <p>Pulls pod logs and events, finds the OOM kill, and proposes a rollout restart that waits in the approvals queue until someone signs off.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 004</span><span>Cloud</span></header>
+            <h3>"What's running in us-east-1?"</h3>
+            <p>Describes EC2 instances, runs CloudWatch Logs Insights queries and summarizes what you're paying for, using an IAM role scoped to read.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 005</span><span>Developer tooling</span></header>
+            <h3>Production context for your coding agent</h3>
+            <p>Connect Claude Code over MCP to a profile built for development. It can read staging logs and query the dev database while you debug, and nothing more.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 006</span><span>Agent networks</span></header>
+            <h3>Delegate to specialists</h3>
+            <p>Expose a profile over A2A so other agents can call it, or attach remote A2A agents and MCP servers so Agent Smith can hand work to them.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 007</span><span>Self-service</span></header>
+            <h3>A status page that answers questions</h3>
+            <p>Publish a standalone chat link with your logo, authenticated or public, backed by scoped access and a read-only health check binding.</p>
+          </article>
+          <article class="case">
+            <header><span>CASE 008</span><span>Data protection</span></header>
+            <h3>Encrypt without exposing keys</h3>
+            <p>The cryptography connector encrypts, decrypts and hashes with vault-held AES keys. The agent does the transformation and never learns the key.</p>
+          </article>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Connect -->
-  <section class="section" id="connect">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Connect</span>
+  <section class="file" id="connect">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 05.B</span><span>Connect</span></div>
+      <div class="file-content">
         <h2>Every surface, one server port.</h2>
-        <p class="section-sub">MCP clients bring their own model and loop. Dashboard chat, standalone chat, A2A and the OpenAI-compatible endpoint run Agent Smith's hosted loop with the profile's configured model.</p>
-      </div>
+        <p class="lede">MCP clients bring their own model and loop. Dashboard chat, standalone chat, A2A and the OpenAI-compatible endpoint run Agent Smith's hosted loop with the profile's configured model. Every example authenticates with a bearer token from <code>POST /v1.0/token</code>.</p>
 
-      <div class="sdk-tabs" role="tablist">
-        <button class="sdk-tab active" data-tab="mcp" role="tab" aria-selected="true">Claude Code (MCP)</button>
-        <button class="sdk-tab" data-tab="openai" role="tab" aria-selected="false">OpenAI-compatible</button>
-        <button class="sdk-tab" data-tab="python" role="tab" aria-selected="false">Python SDK</button>
-        <button class="sdk-tab" data-tab="a2a" role="tab" aria-selected="false">A2A</button>
-      </div>
-      <div class="sdk-panels">
-        <div class="sdk-panel active" id="panel-mcp">
-          <div class="code-block" data-copy>
-            <div class="code-bar"><span>Add Agent Smith to Claude Code</span></div>
-<pre><code><span class="t-prompt">$</span> claude mcp add --transport http hugo http://127.0.0.1:8800/mcp/Hugo \
-    --header <span class="t-string">"Authorization: Bearer $HUGO_TOKEN"</span></code></pre>
+        <div class="term">
+          <div class="term-tabs" role="tablist">
+            <button class="term-tab active" data-tab="mcp" role="tab" aria-selected="true">claude-code.sh</button>
+            <button class="term-tab" data-tab="openai" role="tab" aria-selected="false">openai.sh</button>
+            <button class="term-tab" data-tab="python" role="tab" aria-selected="false">sdk.py</button>
+            <button class="term-tab" data-tab="a2a" role="tab" aria-selected="false">a2a.sh</button>
           </div>
-          <p class="panel-note">Get a bearer token from <code>POST /v1.0/token</code> (or <code>hugo login</code>) and pick the agent profile in the URL. The client receives that profile's compiled instructions, resource-scoped tools and document catalog. Stdio-only clients can use <code>hugo mcp stdio</code>.</p>
-        </div>
-        <div class="sdk-panel" id="panel-openai">
-          <div class="code-block" data-copy>
-            <div class="code-bar"><span>The model name is the agent profile</span></div>
-<pre><code><span class="t-prompt">$</span> curl -s -X POST http://127.0.0.1:8800/v1.0/openai/v1/chat/completions \
-    -H <span class="t-string">"Authorization: Bearer $HUGO_TOKEN"</span> \
-    -H <span class="t-string">"Content-Type: application/json"</span> \
-    -d <span class="t-string">'{"model": "Hugo", "messages": [{"role": "user", "content": "What tables are in demo-db?"}]}'</span></code></pre>
-          </div>
-          <p class="panel-note">Any OpenAI-compatible client works. Agent Smith runs its own tools, streams in OpenAI's chunk format, and tells you in the response when a call is waiting for approval.</p>
-        </div>
-        <div class="sdk-panel" id="panel-python">
-          <div class="code-block" data-copy>
-            <div class="code-bar"><span>Bind a resource to a new agent profile</span></div>
-<pre><code><span class="t-keyword">from</span> hugo_sdk <span class="t-keyword">import</span> HugoClient
+          <div class="term-panels">
+            <div class="term-panel active" id="panel-mcp" data-copy>
+<pre><code><span class="c"># get a session token, then add Agent Smith to Claude Code</span>
+<span class="p">$</span> HUGO_TOKEN=$(curl -s -X POST http://127.0.0.1:8800/v1.0/token \
+    -H <span class="s">"x-email: anderson@hugo.local"</span> -H <span class="s">"x-password: $PASSWORD"</span> | jq -r .token)
 
-<span class="t-keyword">with</span> HugoClient(<span class="t-string">"http://127.0.0.1:8800"</span>) <span class="t-keyword">as</span> client:
-    client.login(<span class="t-string">"anderson@hugo.local"</span>, <span class="t-string">"password"</span>)
-    secret = client.secrets.create({<span class="t-string">"name"</span>: <span class="t-string">"web-01-key"</span>, <span class="t-string">"kind"</span>: <span class="t-string">"Password"</span>, <span class="t-string">"values"</span>: {<span class="t-string">"password"</span>: <span class="t-string">"..."</span>}})
+<span class="p">$</span> claude mcp add --transport http hugo http://127.0.0.1:8800/mcp/Hugo \
+    --header <span class="s">"Authorization: Bearer $HUGO_TOKEN"</span></code></pre>
+              <p class="term-note">The profile goes in the URL. The client receives that profile's compiled instructions, resource-scoped tools and document catalog. Session tokens expire after an hour; <code>hugo login</code> and <code>hugo mcp stdio</code> handle that for stdio clients.</p>
+            </div>
+            <div class="term-panel" id="panel-openai" data-copy>
+<pre><code><span class="c"># the model name is the agent profile</span>
+<span class="p">$</span> curl -s -X POST http://127.0.0.1:8800/v1.0/openai/v1/chat/completions \
+    -H <span class="s">"Authorization: Bearer $HUGO_TOKEN"</span> \
+    -H <span class="s">"Content-Type: application/json"</span> \
+    -d <span class="s">'{"model": "Hugo", "messages": [{"role": "user", "content": "What tables are in demo-db?"}]}'</span></code></pre>
+              <p class="term-note">Any OpenAI-compatible client works. Agent Smith runs its own tools, streams in OpenAI's chunk format, and tells you in the response when a call is waiting for approval.</p>
+            </div>
+            <div class="term-panel" id="panel-python" data-copy>
+<pre><code><span class="k">from</span> hugo_sdk <span class="k">import</span> HugoClient
+
+<span class="k">with</span> HugoClient(<span class="s">"http://127.0.0.1:8800"</span>) <span class="k">as</span> client:
+    client.login(<span class="s">"anderson@hugo.local"</span>, <span class="s">"password"</span>)   <span class="c"># stores a bearer token</span>
+    secret = client.secrets.create({<span class="s">"name"</span>: <span class="s">"web-01-key"</span>, <span class="s">"kind"</span>: <span class="s">"Password"</span>, <span class="s">"values"</span>: {<span class="s">"password"</span>: <span class="s">"..."</span>}})
     resource = client.resources.create({
-        <span class="t-string">"name"</span>: <span class="t-string">"web-01"</span>, <span class="t-string">"connectorType"</span>: <span class="t-string">"ssh"</span>,
-        <span class="t-string">"settings"</span>: {<span class="t-string">"host"</span>: <span class="t-string">"web-01.example.com"</span>, <span class="t-string">"port"</span>: 22, <span class="t-string">"username"</span>: <span class="t-string">"deploy"</span>,
-                     <span class="t-string">"authMethod"</span>: <span class="t-string">"Password"</span>},
-        <span class="t-string">"secretBindings"</span>: [{<span class="t-string">"slotName"</span>: <span class="t-string">"password"</span>, <span class="t-string">"secretId"</span>: secret.id}],
+        <span class="s">"name"</span>: <span class="s">"web-01"</span>, <span class="s">"connectorType"</span>: <span class="s">"ssh"</span>,
+        <span class="s">"settings"</span>: {<span class="s">"host"</span>: <span class="s">"web-01.example.com"</span>, <span class="s">"port"</span>: 22, <span class="s">"username"</span>: <span class="s">"deploy"</span>,
+                     <span class="s">"authMethod"</span>: <span class="s">"Password"</span>},
+        <span class="s">"secretBindings"</span>: [{<span class="s">"slotName"</span>: <span class="s">"password"</span>, <span class="s">"secretId"</span>: secret.id}],
     })
-    profile = client.agent_profiles.create({<span class="t-string">"name"</span>: <span class="t-string">"ops"</span>, <span class="t-string">"displayName"</span>: <span class="t-string">"Ops"</span>})
+    profile = client.agent_profiles.create({<span class="s">"name"</span>: <span class="s">"ops"</span>, <span class="s">"displayName"</span>: <span class="s">"Ops"</span>})
     client.agent_profiles.create_binding(profile.id, {
-        <span class="t-string">"resourceId"</span>: resource.id,
-        <span class="t-string">"alias"</span>: <span class="t-string">"web-01"</span>,
-        <span class="t-string">"accessMode"</span>: <span class="t-string">"ReadWriteWithApproval"</span>,
+        <span class="s">"resourceId"</span>: resource.id, <span class="s">"alias"</span>: <span class="s">"web-01"</span>,
+        <span class="s">"accessMode"</span>: <span class="s">"ReadWriteWithApproval"</span>,
     })</code></pre>
+              <p class="term-note">SDKs for C# (<code>Hugo.Sdk</code>), Python (<code>hugo-sdk</code>) and JavaScript/TypeScript (<code>@jchristn/hugo-sdk</code>), each with examples and a test harness.</p>
+            </div>
+            <div class="term-panel" id="panel-a2a" data-copy>
+<pre><code><span class="c"># each profile is an A2A agent with its own card</span>
+<span class="p">$</span> curl -s http://127.0.0.1:8800/v1.0/a2a/default/Hugo/.well-known/agent-card.json</code></pre>
+              <p class="term-note">Profiles live at <code>/v1.0/a2a/{tenantId}/{profileName}</code>. Other agents send tasks with a bearer token; the same access modes and approvals apply.</p>
+            </div>
           </div>
-          <p class="panel-note">SDKs are available for C# (<code>Hugo.Sdk</code>), Python (<code>hugo-sdk</code>) and JavaScript/TypeScript (<code>@jchristn/hugo-sdk</code>), each with examples and a test harness.</p>
-        </div>
-        <div class="sdk-panel" id="panel-a2a">
-          <div class="code-block" data-copy>
-            <div class="code-bar"><span>Fetch a profile's agent card</span></div>
-<pre><code><span class="t-prompt">$</span> curl -s http://127.0.0.1:8800/v1.0/a2a/default/Hugo/.well-known/agent-card.json</code></pre>
-          </div>
-          <p class="panel-note">Each profile is an A2A agent at <code>/v1.0/a2a/{tenantId}/{profileName}</code>, with an agent card describing its skills. Other agents send it tasks; the same access modes and approvals apply.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Quick start -->
-  <section class="section section-alt" id="quickstart">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-tag">Get Started</span>
+  <!-- 06 Start -->
+  <section class="file" id="quickstart">
+    <div class="wrap file-grid">
+      <div class="file-label"><span class="file-no">FILE 06</span><span>Get started</span></div>
+      <div class="file-content">
         <h2>Up and running in 5 minutes, in your stack.</h2>
-        <p class="section-sub">All you need is Docker with Docker Compose. The start script creates your <code>.env</code>, generates keys, and brings up the server, dashboard and observability stack.</p>
-      </div>
+        <p class="lede">All you need is Docker with Docker Compose. The start script creates your <code>.env</code>, generates keys, and brings up the server, dashboard and observability stack.</p>
 
-      <div class="quickstart-grid">
-        <div class="qs-steps">
-          <div class="qs-step">
-            <span class="qs-num">1</span>
-            <div>
+        <div class="start-split">
+          <ol class="start-steps">
+            <li>
               <h3>Clone and start</h3>
-              <div class="code-block" data-copy>
-<pre><code><span class="t-prompt">$</span> git clone https://github.com/jchristn/AgentSmith.git
-<span class="t-prompt">$</span> cd AgentSmith/docker
-<span class="t-prompt">$</span> ./start.sh</code></pre>
+              <div class="term term-mini" data-copy>
+<pre><code><span class="p">$</span> git clone https://github.com/jchristn/AgentSmith.git
+<span class="p">$</span> cd AgentSmith/docker
+<span class="p">$</span> ./start.sh</code></pre>
               </div>
-              <p class="qs-note">On Windows, run <code>start.bat</code>. Back up <code>docker/.env</code> with your database: it holds the master key that decrypts the vault.</p>
-            </div>
-          </div>
-          <div class="qs-step">
-            <span class="qs-num">2</span>
-            <div>
-              <h3>Sign in to the dashboard</h3>
-              <p>Open <code>http://127.0.0.1:8801</code> and sign in to tenant <code>default</code> as <code>anderson@hugo.local</code> with password <code>password</code>. Change it before anyone else can reach the stack.</p>
-            </div>
-          </div>
-          <div class="qs-step">
-            <span class="qs-num">3</span>
-            <div>
+              <p class="fine">On Windows, run <code>start.bat</code>. Back up <code>docker/.env</code> with your database: it holds the master key that unseals the vault.</p>
+            </li>
+            <li>
+              <h3>Welcome back, Mr. Anderson</h3>
+              <p>Open <code>http://127.0.0.1:8801</code> and sign in to tenant <code>default</code> as <code>anderson@hugo.local</code> with password <code>password</code>. Yes, the seeded administrator really is Mr. Anderson. Change the password before anyone else can reach the stack.</p>
+            </li>
+            <li>
               <h3>Follow the setup wizard</h3>
               <p>Add a model endpoint (Ollama or a hosted provider with tool calling), create a secret, add a resource and test it, then bind it to an agent.</p>
-            </div>
-          </div>
-          <div class="qs-step">
-            <span class="qs-num">4</span>
-            <div>
+            </li>
+            <li>
               <h3>Say hello to Agent Smith</h3>
-              <p>Open <strong>Chat</strong> and ask about your systems. Tool calls appear inline with their effect, and risky ones wait for you.</p>
+              <p>Open Chat and ask about your systems. Tool calls appear inline with their effect, and risky ones wait for you. Expect to be told it was inevitable.</p>
+            </li>
+          </ol>
+
+          <div class="start-side">
+            <div class="memo">
+              <span class="memo-head">MEMO // just looking?</span>
+              <p>The factory stack in <code>docker/factory/</code> is a separate, seeded demo with its own databases, SSH host, MinIO, Redis, Prometheus and Loki. Try every connector without touching anything real.</p>
+              <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/FACTORY.md" target="_blank" rel="noopener">&gt; factory guide</a>
+            </div>
+            <div class="memo">
+              <span class="memo-head">PORTS // bound to 127.0.0.1</span>
+              <dl class="ports">
+                <dt>Dashboard</dt><dd>8801</dd>
+                <dt>API, MCP, A2A</dt><dd>8800</dd>
+                <dt>Grafana</dt><dd>3000</dd>
+                <dt>Prometheus</dt><dd>9090</dd>
+              </dl>
+            </div>
+            <div class="memo">
+              <span class="memo-head">FURTHER READING</span>
+              <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">&gt; kubernetes and helm</a>
+              <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/MCP_CLIENTS.md" target="_blank" rel="noopener">&gt; mcp client setup</a>
+              <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/SAFETY_MODEL.md" target="_blank" rel="noopener">&gt; safety model</a>
+              <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/CONNECTORS.md" target="_blank" rel="noopener">&gt; connector catalog</a>
             </div>
           </div>
         </div>
-
-        <aside class="qs-side">
-          <div class="qs-card">
-            <h3>Just want to look around?</h3>
-            <p>The factory stack in <code>docker/factory/</code> is a separate, seeded demo with its own databases, SSH host, MinIO, Redis, Prometheus and Loki, so you can try every connector without touching anything real.</p>
-            <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/FACTORY.md" target="_blank" rel="noopener" class="text-link">Factory guide &rarr;</a>
-          </div>
-          <div class="qs-card">
-            <h3>Default ports</h3>
-            <table class="ports">
-              <tr><td>Dashboard</td><td><code>8801</code></td></tr>
-              <tr><td>Server API, MCP, A2A</td><td><code>8800</code></td></tr>
-              <tr><td>Grafana</td><td><code>3000</code></td></tr>
-              <tr><td>Prometheus</td><td><code>9090</code></td></tr>
-            </table>
-            <p class="qs-small">Host ports bind to <code>127.0.0.1</code> by default.</p>
-          </div>
-          <div class="qs-card">
-            <h3>Going further</h3>
-            <ul class="doc-links">
-              <li><a href="https://github.com/jchristn/AgentSmith/blob/main/docs/KUBERNETES.md" target="_blank" rel="noopener">Kubernetes and Helm</a></li>
-              <li><a href="https://github.com/jchristn/AgentSmith/blob/main/docs/MCP_CLIENTS.md" target="_blank" rel="noopener">MCP client setup</a></li>
-              <li><a href="https://github.com/jchristn/AgentSmith/blob/main/docs/SAFETY_MODEL.md" target="_blank" rel="noopener">Safety model</a></li>
-              <li><a href="https://github.com/jchristn/AgentSmith/blob/main/docs/CONNECTORS.md" target="_blank" rel="noopener">Connector catalog</a></li>
-            </ul>
-          </div>
-        </aside>
       </div>
     </div>
   </section>
 
-  <!-- Community CTA -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta">
-        <span class="logo-disc logo-disc-md"><img src="assets/icon.png" alt="" width="96" height="96"></span>
-        <h2>Never send a human to do a machine's job.</h2>
-        <p>Agent Smith is in active development at <code>0.1.0-alpha</code>. Come tell us what your stack looks like, what you'd hand to an agent, and what's missing.</p>
-        <div class="hero-actions">
-          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="btn btn-primary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-            Join the Discord
-          </a>
-          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="btn btn-secondary">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.786 1.4 8.168L12 18.896l-7.334 3.868 1.4-8.168L.132 9.21l8.2-1.192z"/></svg>
-            Star on GitHub
-          </a>
-          <a href="https://github.com/jchristn/AgentSmith/issues" target="_blank" rel="noopener" class="btn btn-ghost">Report an issue</a>
+  <!-- Finale -->
+  <section class="finale">
+    <canvas class="rain rain-finale" id="rain-finale" aria-hidden="true"></canvas>
+    <div class="wrap finale-inner">
+      <img src="assets/icon.png" alt="" class="finale-portrait" width="512" height="512">
+      <div>
+        <p class="finale-kicker">We've been expecting you, Mr. Anderson.</p>
+        <h2 class="glitch" data-text="Never send a human to do a machine's job.">Never send a human to do a machine's job.</h2>
+        <p class="finale-sub">Agent Smith is in active development at <code>0.1.0-alpha</code>. Tell us what your stack looks like, what you'd hand to an agent, and what's missing.</p>
+        <div class="cta-row">
+          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener" class="btn btn-solid">[ Join the Discord ]</a>
+          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener" class="btn btn-line">[ Star on GitHub ]</a>
+          <a href="https://github.com/jchristn/AgentSmith/issues" target="_blank" rel="noopener" class="btn btn-text">report an issue</a>
         </div>
       </div>
     </div>
@@ -686,41 +555,36 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <div class="container">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a href="#" class="nav-logo" aria-label="Agent Smith home">
-            <span class="logo-disc logo-disc-sm"><img src="assets/icon.png" alt="" width="34" height="34"></span>
-            <span class="wordmark">Agent <span class="accent">Smith</span></span>
-          </a>
-          <p>One agent for your entire production stack. Open source under the MIT license.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Product</h4>
-          <a href="#how">How it works</a>
-          <a href="#connectors">Connectors</a>
-          <a href="#safety">Safety model</a>
-          <a href="#quickstart">Get started</a>
-        </div>
-        <div class="footer-col">
-          <h4>Docs</h4>
-          <a href="https://github.com/jchristn/AgentSmith#readme" target="_blank" rel="noopener">README</a>
-          <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
-          <a href="https://github.com/jchristn/AgentSmith/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
-          <a href="https://github.com/jchristn/AgentSmith/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP API</a>
-        </div>
-        <div class="footer-col">
-          <h4>Community</h4>
-          <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
-          <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://github.com/jchristn/AgentSmith/issues" target="_blank" rel="noopener">Issues</a>
-          <a href="https://github.com/jchristn/AgentSmith/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
-        </div>
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">AGENT_SMITH</span>
+        <p>One agent for your entire production stack. Open source under the MIT license.</p>
       </div>
-      <div class="footer-bottom">
-        <span>&copy; 2026 Joel Christner. MIT licensed.</span>
-        <span class="footer-quote">"Mr. Anderson. Welcome back."</span>
+      <div class="footer-col">
+        <span>// product</span>
+        <a href="#method">How it works</a>
+        <a href="#connectors">Connectors</a>
+        <a href="#safety">Safety model</a>
+        <a href="#quickstart">Get started</a>
       </div>
+      <div class="footer-col">
+        <span>// docs</span>
+        <a href="https://github.com/jchristn/AgentSmith#readme" target="_blank" rel="noopener">README</a>
+        <a href="https://github.com/jchristn/AgentSmith/blob/main/docs/ARCHITECTURE.md" target="_blank" rel="noopener">Architecture</a>
+        <a href="https://github.com/jchristn/AgentSmith/blob/main/REST_API.md" target="_blank" rel="noopener">REST API</a>
+        <a href="https://github.com/jchristn/AgentSmith/blob/main/MCP_API.md" target="_blank" rel="noopener">MCP API</a>
+      </div>
+      <div class="footer-col">
+        <span>// community</span>
+        <a href="https://discord.gg/tRAN8HgvK5" target="_blank" rel="noopener">Discord</a>
+        <a href="https://github.com/jchristn/AgentSmith" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/jchristn/AgentSmith/issues" target="_blank" rel="noopener">Issues</a>
+        <a href="https://github.com/jchristn/AgentSmith/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <span>&copy; 2026 Joel Christner &middot; MIT</span>
+      <span class="eof">Goodbye, Mr. Anderson. <i>EOF</i></span>
     </div>
   </footer>
 

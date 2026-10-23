@@ -17,8 +17,8 @@ python3 -m http.server 8000
 ## Files
 
 - `index.html` - the complete page
-- `styles.css` - styling, with dark (default) and light themes driven by CSS variables
-- `script.js` - theme toggle, mobile menu, code tabs, copy buttons, hero rain effect and scroll animations
+- `styles.css` - "classified dossier on a phosphor terminal" styling: dark terminal (default) and light paper themes driven by CSS variables
+- `script.js` - theme toggle, mobile menu, terminal tabs, copy buttons, digital rain and scroll reveals
 - `assets/` - icon, logo and favicon from the Agent Smith repository
 - `CNAME` - GitHub Pages custom domain (`hugoweaving.ai`)
 
