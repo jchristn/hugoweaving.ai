@@ -497,7 +497,7 @@
         <div class="usecase-card">
           <span class="usecase-tag">Developer tooling</span>
           <h3>Give your coding agent production context</h3>
-          <p>Connect Claude Code over MCP with a credential locked to one profile. It can read staging logs and query the dev database while you debug, and nothing more.</p>
+          <p>Connect Claude Code over MCP to a profile built for development. It can read staging logs and query the dev database while you debug, and nothing more.</p>
         </div>
         <div class="usecase-card">
           <span class="usecase-tag">Agent networks</span>
@@ -537,17 +537,16 @@
         <div class="sdk-panel active" id="panel-mcp">
           <div class="code-block" data-copy>
             <div class="code-bar"><span>Add Agent Smith to Claude Code</span></div>
-<pre><code><span class="t-prompt">$</span> claude mcp add --transport http hugo http://127.0.0.1:8800/mcp \
-    --header <span class="t-string">"x-access-key: $HUGO_ACCESS_KEY"</span> \
-    --header <span class="t-string">"x-secret-key: $HUGO_SECRET_KEY"</span></code></pre>
+<pre><code><span class="t-prompt">$</span> claude mcp add --transport http hugo http://127.0.0.1:8800/mcp/Hugo \
+    --header <span class="t-string">"Authorization: Bearer $HUGO_TOKEN"</span></code></pre>
           </div>
-          <p class="panel-note">Create a credential in <strong>Access &gt; Credentials</strong> and enable <strong>Lock to profile</strong>. The client receives that profile's compiled instructions, resource-scoped tools and document catalog. Stdio-only clients can use <code>hugo mcp stdio</code>.</p>
+          <p class="panel-note">Get a bearer token from <code>POST /v1.0/token</code> (or <code>hugo login</code>) and pick the agent profile in the URL. The client receives that profile's compiled instructions, resource-scoped tools and document catalog. Stdio-only clients can use <code>hugo mcp stdio</code>.</p>
         </div>
         <div class="sdk-panel" id="panel-openai">
           <div class="code-block" data-copy>
             <div class="code-bar"><span>The model name is the agent profile</span></div>
 <pre><code><span class="t-prompt">$</span> curl -s -X POST http://127.0.0.1:8800/v1.0/openai/v1/chat/completions \
-    -H <span class="t-string">"Authorization: Bearer $TOKEN"</span> \
+    -H <span class="t-string">"Authorization: Bearer $HUGO_TOKEN"</span> \
     -H <span class="t-string">"Content-Type: application/json"</span> \
     -d <span class="t-string">'{"model": "Hugo", "messages": [{"role": "user", "content": "What tables are in demo-db?"}]}'</span></code></pre>
           </div>
@@ -592,7 +591,7 @@
     <div class="container">
       <div class="section-header">
         <span class="section-tag">Get Started</span>
-        <h2>Running in about five minutes.</h2>
+        <h2>Up and running in 5 minutes, in your stack.</h2>
         <p class="section-sub">All you need is Docker with Docker Compose. The start script creates your <code>.env</code>, generates keys, and brings up the server, dashboard and observability stack.</p>
       </div>
 
